@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
@@ -37,6 +38,9 @@ public class CrimeFragment extends Fragment {
     public static final int REQUEST_CODE=0;
     private static final int REQUEST_PHOTO=1;
     private static final String TAG="CrimeFragment";
+    private static final int REQUEST_CONTACE=2;
+
+    private Button mSuspectButton;
      Crime mCrime;
      EditText mCrimeTitle;
      Button mCrimeDate;
@@ -101,6 +105,18 @@ public class CrimeFragment extends Fragment {
             getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        mSuspectButton=(Button)view.findViewById(R.id.crime_suspectButton);
+        mSuspectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                startActivityForResult(intent,REQUEST_CONTACE);
+            }
+        });
+        if(mCrime.getSuspect()!=null)
+        {
+            mSuspectButton.setText(mCrime.getSuspect());
+        }
         Button reportButton=(Button)view.findViewById(R.id.crime_reportButton);
         reportButton.setOnClickListener(new View.OnClickListener() {
             @Override
