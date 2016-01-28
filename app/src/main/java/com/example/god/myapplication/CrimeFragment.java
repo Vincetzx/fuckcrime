@@ -109,6 +109,7 @@ public class CrimeFragment extends Fragment {
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, getCrimeReport());
                 intent.putExtra(Intent.EXTRA_SUBJECT,getString(R.string.crime_report_subject));
+                intent=Intent.createChooser(intent,"Send crime report");
                 startActivity(intent);
             }
         });
